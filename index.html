@@ -1,0 +1,72 @@
+<!DOCTYPE html5> 
+<html> 
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>数字推盘</title>
+    <link href="index.css" rel="stylesheet" type="text/css">
+</head>    
+<body> 
+    <div class="title">
+        <h1>拼图游戏</h1>
+        <p id="p1" onclick="showAnswer()">点击显示正确结果</p>
+    </div>
+    <br/>
+    <div class="grid_wrapper">
+        <div class="gird">
+            <img src="storage/1.png" id="1" class="cell" onclick="changeCell(id, src)"> 
+            <img src="storage/2.png" id="2" class="cell" onclick="changeCell(id, src)">
+            <img src="storage/3.png" id="3" class="cell" onclick="changeCell(id, src)">
+            <img src="storage/4.png" id="4" class="cell" onclick="changeCell(id, src)">
+            <img src="storage/5.png" id="5" class="cell" onclick="changeCell(id, src)">
+            <img src="storage/6.png" id="6" class="cell" onclick="changeCell(id, src)">
+            <img src="storage/7.png" id="7" class="cell" onclick="changeCell(id, src)">
+            <img src="storage/8.png" id="8" class="cell" onclick="changeCell(id, src)">
+            <img src="storage/blank.png" id="9" class="cell-blank" onclick="changeCell(id, src)">
+        </div>
+    </div>
+</body> 
+</html>
+
+<script type="text/javascript">
+    var imgSrcArr = [1, 2, 3, 4, 5, 6, 7, 8]
+    var strArr = ["1", "2", "3", "4", "5", "6", "7", "8"]
+    // 数组乱序
+    function shuffle(a) {
+        var b = [];
+        while (a.length > 0) {
+        var index = parseInt(Math.random() * (a.length - 1));
+        b.push(a[index]);
+        a.splice(index, 1);
+        }
+        return b;
+    }
+    var newArr = shuffle(imgSrcArr)
+    console.log(newArr)
+    console.log('test', strArr[1])
+    for (var i = 0; i < 8; i++){
+        document.getElementById(strArr[i]).src = "storage/" + newArr[i] + ".png"
+    }
+
+   function changeCell(id, src){
+       var blankId = parseInt(document.getElementsByClassName("cell-blank")[0].id)
+        //alert(src)file:///E:/Courseware/Grade%20Three/Web%E5%BC%80%E5%8F%91/homework/homework2/DigitalPush/storage/8.png
+        //alert(src.substring(src.length - 13))
+       if(document.getElementById(id).className != "cell-blank"){
+           if(((id == blankId + 1) && id != 4 && id != 7) || ((id == blankId - 1) && id != 3 && id != 6) || id == blankId + 3 || id == blankId - 3){
+               document.getElementById(id).src = "storage/blank.png"
+               document.getElementById(id).className = "cell-blank"
+               document.getElementById(blankId).src = src.substring(src.length - 13)
+               document.getElementById(blankId).className = "cell"
+           }
+       }
+   }
+   function showAnswer(){
+        var imgSrcArr = [1, 2, 3, 4, 5, 6, 7, 8]
+        var strArr = ["1", "2", "3", "4", "5", "6", "7", "8"]
+        //alert("storage/" + imgSrcArr[0] + ".png")
+        for (var i = 0; i < 8; i++){
+            document.getElementById(strArr[i]).src = "storage/" + imgSrcArr[i] + ".png"
+        }
+        document.getElementById("9").src = "storage/blank.png"
+   }
+</script>
